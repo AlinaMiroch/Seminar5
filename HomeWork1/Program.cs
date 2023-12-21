@@ -1,0 +1,186 @@
+﻿﻿//Напишите программу, которая на вход принимает позиции
+// элемента в двумерном массиве, и возвращает значение этого
+// элемента или же указание, что такого элемента нет.
+//Пример
+//4 3 1         (1,2)  => 9  
+//2 6 9
+int[,] array = new int[5, 4];
+
+CreateArray();
+PrintArray();
+int[] coordinates = AskCoordinates();
+ShowValue(coordinates);
+
+void CreateArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = new Random().Next(1, 10);
+        }
+    }
+}
+
+void PrintArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            System.Console.Write(array[i, j] + " ");
+        }
+        System.Console.WriteLine();
+    }
+    System.Console.WriteLine();
+}
+
+int[] AskCoordinates()
+{
+    Console.WriteLine("Введите координату x: ");
+    int x = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Введите координату y: ");
+    int y = Convert.ToInt32(Console.ReadLine());
+    int[] arr = new int[] { x, y };
+    return arr;
+}
+
+void ShowValue(int [] coordinates)
+{
+    int x = coordinates[0];
+    int y = coordinates[1];
+
+    if (x < 0 || x >= array.GetLength(0))
+    {
+        Console.WriteLine("Значение x выходить за пределы массива");
+    }
+    else if (y < 0 || y >= array.GetLength(1))
+    {
+        Console.WriteLine("Значение y выходить за пределы массива");
+    }
+    else
+    {
+        Console.WriteLine($"Значение элемента ({x}, {y}): {array[x, y]}");
+    }
+}
+
+
+﻿// Задайте двумерный массив. Напишите программу,
+// которая поменяет местами первую и последнюю строку массива.
+//4 3 1  =>  4 6 2 
+//2 6 9      2 6 9 
+//4 6 2      4 3 1
+
+int[,] array = new int[5, 4];
+
+CreateArray();
+PrintArray();
+ReplaceFirstAndLastStrings();
+PrintArray();
+
+void CreateArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = new Random().Next(1, 10);
+        }
+    }
+}
+
+void PrintArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            System.Console.Write(array[i, j] + " ");
+        }
+        System.Console.WriteLine();
+    }
+    System.Console.WriteLine();
+}
+
+void ReplaceFirstAndLastStrings()
+{
+    for (int i = 0; i < array.GetLength(1); i++)
+    {
+        int temp = array [0,i];
+        array [0,i] = array [ array.GetLength(0) -1, i];
+        array [ array.GetLength(0) -1, i] = temp;
+    }
+   
+}
+
+
+
+
+﻿// Задайте прямоугольный двумерный массив. Напишите программу, которая
+// будет находить строку с наименьшей суммой элементов.
+//4 3 1  => Строка с индексом 0
+//2 6 9
+//4 6 2 
+
+int[,] array = new int[5, 4];
+
+CreateArray();
+PrintArray();
+int[] stringsSums = CalculateStringsSums();
+int result = FindMinSumsIndex(stringsSums);
+Console.WriteLine("Строка с минимальной суммой - " + result);
+
+void CreateArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = new Random().Next(1, 10);
+        }
+    }
+}
+
+void PrintArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            System.Console.Write(array[i, j] + " ");
+        }
+        System.Console.WriteLine();
+    }
+    System.Console.WriteLine();
+}
+
+int[] CalculateStringsSums()
+{
+    int[] arr = new int[array.GetLength(0)];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            sum += array [i,j];
+        }
+        arr [i] = sum;
+    }
+    return arr;
+}
+
+
+int  FindMinSumsIndex(int [] stringsSums)
+{
+    int min = stringsSums [0];
+    int index = 0;
+    for (int i = 1; i < stringsSums.Length; i++)
+    {
+        if (stringsSums [i] < min)
+        {
+            min = stringsSums [i];
+            index = i;
+        }
+    }
+    return index;
+}
